@@ -8,4 +8,8 @@ defmodule PreventWeb.ClinicController do
   def detail(conn, _params) do
     render(conn, "detail.html")
   end
+
+  def new(conn, _params) do
+    render(conn, "new.html")
+  end
 end

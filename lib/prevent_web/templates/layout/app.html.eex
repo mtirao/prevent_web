@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/bootstrap.bundle.js") %>"></script>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/jquery.min.js") %>"></script>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/popper.js") %>"></script>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/main.min.js") %>"></script>
   </head>
   <body>
 

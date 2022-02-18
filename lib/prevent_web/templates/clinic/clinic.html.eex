@@ -11,7 +11,7 @@
           <a class="nav-link active" aria-current="page" href="/">Patient</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Calendar</a>
+          <a class="nav-link" href="/calendar">Calendar</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,8 +37,8 @@
 
 <div class="container mt-4">
       <h1>
-          Index
-          <a href="/NewAdult" class="btn btn-primary ml-4">+ New</a>
+          Clinic
+          <a href="/clinic/new" class="btn btn-primary ml-4">+ New</a>
       </h1>
       <hr>
       <div class="table-responsive">
