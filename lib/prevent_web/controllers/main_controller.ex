@@ -4,4 +4,8 @@ defmodule PreventWeb.MainController do
   def login(conn, _params) do
     render(conn, "patient.html")
   end
+
+  def home(conn, _params) do
+    render(conn, "patient.html")
+  end
 end

@@ -29,7 +29,7 @@
         </li>
       </ul>
       <div class="d-flex">
-        <span class="">Marcos Tirao</span>
+        <a class="nav-link" href="/">Marcos Tirao</a>
       </div>
     </div>
   </div>
@@ -86,7 +86,8 @@
 			              </tbody>
 				          </table>
 				        </div>
-				        <button class="button" id="add-button">Add Event</button>
+
+				        <button class="btn btn-primary" id="add-button">Add Event</button>
 				      </div>
 				    </div>
 				    <div class="events-container">

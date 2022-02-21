@@ -19,6 +19,7 @@ defmodule PreventWeb.Router do
     get "/", PageController, :index
 
     post "/login", MainController, :login
+    get "/home", MainController, :home
 
     get "/clinic", ClinicController, :index
     get "/clinic/detail", ClinicController, :detail
