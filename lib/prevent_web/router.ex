@@ -26,6 +26,9 @@ defmodule PreventWeb.Router do
     get "/clinic/new", ClinicController, :new
 
     get "/calendar", CalendarController, :index
+
+    get "/patient/new", ProfileController, :new_patient
+    post "/patient/save", ProfileController, :save_patient
   end
 
   # Other scopes may use custom stacks.
