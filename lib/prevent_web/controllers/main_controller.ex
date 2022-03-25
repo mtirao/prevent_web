@@ -1,6 +1,13 @@
 defmodule PreventWeb.MainController do
   use PreventWeb, :controller
 
+
+  def index(conn, _params) do
+    token = get_csrf_token()
+
+    render(conn, "index.html", csrf_token: token, error_message: "")
+  end
+
   def login(conn, params) do
 
     url = "http://localhost:3000/api/prevent/accounts/login"
@@ -21,13 +28,19 @@ defmodule PreventWeb.MainController do
       render(conn, "patient.html", name: "#{firstname} #{lastname}", patients: patients , val: 0)
     else
       token = get_csrf_token()
-      render(conn, "main.html", error_message: "User or password incorrect",  csrf_token: token)
+      render(conn, "index.html", error_message: "User or password incorrect",  csrf_token: token)
     end
   end
 
   def patient_map(patient) do
     {:ok, value} = DateTimeParser.parse(patient["birthday"])
-    Map.put(patient, "age", trunc(NaiveDateTime.diff(NaiveDateTime.utc_now, value) / 31536000))
+    age = trunc(NaiveDateTime.diff(NaiveDateTime.utc_now, value) / 31536000)
+    id = patient["profileid"]
+    patientid = patient["patientid"]
+
+    patient |> Map.put("age", age)
+            |> Map.put("profileid", id)
+            |> Map.put("patientid", patientid)
   end
 
   def home(conn, _params) do

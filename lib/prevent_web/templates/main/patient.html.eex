@@ -27,10 +27,11 @@
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
-      </ul>
-       <div class="nav-item d-flex">
-        <a class="nav-link" href="/"><%=@name%></a>
-      </div>
+        </ul>
+        <div class="pull-right">
+            <a class="nav-link" href="/"><%=@name%></a>
+        </div>
+
     </div>
   </div>
 </nav>
@@ -50,7 +51,7 @@
   <tbody>
 
      <%= for {patient, i} <- @patients do %>
-        <tr onclick="window.open('/clinic','_self')">
+        <tr onclick= 'window.open("/clinic?age=<%=patient["age"]%>&profile_id=<%=patient["profileid"]%>&patient_id=<%=patient["patientid"]%>", "_self")'  <%= patient["action"] %> >
             <th scope="row"><%= i + 1%></th>
             <td> <%= patient["firstname"]%> </td>
             <td><%= patient["lastname"]%></td>

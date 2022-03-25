@@ -38,7 +38,7 @@
 <div class="container mt-4">
       <h1>
         <div class="navbar-brand">Clinic</div>
-          <a href="/clinic/new" class="btn btn-primary ml-1">+ New</a>
+          <a href="/clinic/new" class="btn btn-primary ml-1">New</a>
       </h1>
       <div class="table-responsive">
           <table class="table table-hover">
@@ -50,6 +50,16 @@
               <th scope="col">Nutritional Value</th>
             </tr>
           </thead>
+
+            <%= for clinic <- @clinic do %>
+            <tr onclick="window.open('/clinic + ,'_self')">
+                <th scope="row"><%= clinic["patientid"]%></th>
+                <td> <%= clinic["date"]%> </td>
+                <td><%= clinic["bloodpressurediastolic"] / clinic["bloodpressuresystolic"]%></td>
+                <td><%= clinic["nutritionalValue"]%></td>
+            </tr>
+            <% end %>
+
           <tbody>
             <tr onclick="window.open('/clinic/detail','_self')">
               <th scope="row">1</th>

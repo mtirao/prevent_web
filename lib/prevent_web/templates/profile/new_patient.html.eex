@@ -1,0 +1,154 @@
+
+<script type="text/javascript">
+     $(function () {
+                $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD'});
+            });
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Prevent</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home">Patient</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/calendar">Calendar</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+       <div class="nav-item d-flex">
+        <a class="nav-link" href="/">Marcos Tirao</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<%= if @error_type == "success" do %>
+    <div class="alert alert-success" role="alert">
+        Success!
+    </div>
+<% end %>
+
+<%= if @error_type == "error" do %>
+    <div class="alert alert-danger" role="alert">
+        Something bad just happened. Trying again later.
+    </div>
+<% end %>
+
+
+
+<div class="container mt-4">
+    <form method="POST" action="/patient/save">
+        <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+        <h1>
+            <div class="navbar-brand">New Patient</div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </h1>
+        <hr>
+
+        <div class="d-flex flex-row mt-3">
+        <div class="form-group mr-3">
+            <label for="formGroupProfileInput">Name</label>
+            <input type="text" value="" name="first_name" class="form-control" id="formGroupProfileInput" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="formGroupProfileInput1">Last name</label>
+            <input type="text" value="" name="last_name" class="form-control" id="formGroupProfileInput1" placeholder="">
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="formGroupProfileInput2">Email</label>
+            <input type="text" value="" name="email" class="form-control" id="formGroupProfileInput2" placeholder="">
+        </div>
+        <div class="d-flex flex-row mt-3">
+            <div class="form-group mr-3">
+                <label for="formGroupProfileInput3">Cell phone</label>
+                <input type="text" value="" name="cell_phone" class="form-control" id="formGroupProfileInput3" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="formGroupProfileInput3">Home phone</label>
+                <input type="text" value="" name="phone" class="form-control" id="formGroupProfileInput3" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="formGroupProfileInput4">Gender</label>
+            <select class="form-select" name="gender" id="formGroupProfileInput4" aria-label="Default select example">
+                <option selected value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formGroupProfileInput5">Address</label>
+            <input type="text" value="" name="address" class="form-control" id="formGroupProfileInput5" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="formGroupProfileInput6">City</label>
+            <input type="text" value="" name="city" class="form-control" id="formGroupProfileInput6" placeholder="">
+        </div>
+        <div class="d-flex flex-row mt-3">
+            <div class="form-group mr-3">
+                <label for="formGroupProfileInput6">User name</label>
+                <input type="text" value="" name="user_name" class="form-control" id="formGroupProfileInput6" placeholder="">
+            </div>
+            <div class="form-group mr-3">
+                <label for="formGroupProfileInput7">User password</label>
+                <input type="text" value="" name="user_password" class="form-control" id="formGroupProfileInput7" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="formGroupProfileInput8">Confirm password</label>
+                <input type="text" value="" name="confirm_password" class="form-control" id="formGroupProfileInput8" placeholder="">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="formGroupPatientInput9">National Id</label>
+            <input type="text" value="" name="nationalid" class="form-control" id="formGroupPatientInput9" placeholder="">
+        </div>
+
+        <div class="form-group">
+                 <label for="datetimepicker1">Birthday</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' name="birthday" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+
+        <div class="form-group">
+            <label for="formGroupPatientInput11">Insurance type</label>
+            <input type="text" value="" name="insurance_type" class="form-control" id="formGroupPatientInput11" placeholder="">
+        </div>
+
+        <div class="form-group">
+           <label for="formGroupPatientInput12">Preferred contact method</label>
+            <select class="form-select" name="preferred_contact_method" id="formGroupPatientInput12" aria-label="Default select example">
+                <option selected value="email">Email</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="sms">Text Message</option>
+            </select>
+        </div>
+
+        <input type="hidden" value="patient" name="user_role">
+    </form>
+</div>

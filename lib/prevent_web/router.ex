@@ -16,7 +16,7 @@ defmodule PreventWeb.Router do
   scope "/", PreventWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", MainController, :index
 
     post "/login", MainController, :login
     get "/home", MainController, :home
