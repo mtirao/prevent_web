@@ -59,11 +59,6 @@
 <div class="container mt-4">
     <form method="POST" action="/patient/save">
         <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
-        <h1>
-            <div class="navbar-brand">New Patient</div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </h1>
-        <hr>
 
         <div class="d-flex flex-row mt-3">
         <div class="form-group mr-3">
@@ -150,5 +145,12 @@
         </div>
 
         <input type="hidden" value="patient" name="user_role">
+
+         <div class="form-check form-check-inline mt-5">
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </div>
+
     </form>
 </div>

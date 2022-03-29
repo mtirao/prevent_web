@@ -35,49 +35,52 @@
   </div>
 </nav>
 
+<%= if @error_type == "error" do %>
+    <div class="alert alert-danger" role="alert">
+        Something bad just happened. Trying again later.
+    </div>
+<% end %>
+
 <div class="container mt-4 row justify-content-center align-items-center">
-  <h1>
-      <a href="/clinic/save" class="btn btn-primary ml-4">Save</a>
-  </h1>
-  <form>
-    <div class="form-group mt-6">
-      <label for="formGroupExampleInput">Nutritional Value: </label>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" checked>
-        <label class="form-check-label" for="inlineRadio1">Normal</label>
+  <form class="form" method="POST" action="/clinic/adult/new">
+    <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+    <input type="hidden" name="patient_id" value="<%= @patient_id%>">
+    <div class="d-flex flex-row mt-3">
+      <div class="form-group mr-3">
+        <label for="formGroupExampleInput">Height(cm):</label>
+        <input type="text" value="" name="height" class="form-control" id="formGroupExampleInput" placeholder="">
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-        <label class="form-check-label" for="inlineRadio2">Overweight</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-        <label class="form-check-label" for="inlineRadio3">Obesity</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-        <label class="form-check-label" for="inlineRadio3">Underweight</label>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Weight(kg):</label>
+        <input type="text" value="" name="weight" class="form-control" id="formGroupExampleInput2" placeholder="">
       </div>
     </div>
     <div class="form-check form-check-inline mt-3">
       <label class="form-check-label mr-1" for="inlineCheckbox3">Nutritional monitoring</label>
-      <input class="form-check-input" type="checkbox" name="inlineCheckboxOptions" id="inlineCheckbox3" value="true">
+      <input class="form-check-input" type="checkbox" name="nutritional_monitoring" id="inlineCheckbox3" value="true">
     </div>
     <div class="d-flex flex-row mt-3">
       <div class="form-group mr-3">
         <label for="formGroupExampleInput">Blood pressure(systolic)</label>
-        <input type="text" value="" class="form-control" id="formGroupExampleInput" placeholder="">
+        <input type="text" value="" name="blood_pressure_systolic" class="form-control" id="formGroupExampleInput" placeholder="">
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">Blood pressure(diastolic)</label>
-        <input type="text" value="" class="form-control" id="formGroupExampleInput2" placeholder="">
+        <input type="text" value="" name="blood_pressure_diastolic" class="form-control" id="formGroupExampleInput2" placeholder="">
+      </div>
+    </div>
+
+    <div class="form-group mt-6">
+      <label for="formGroupExampleInput">Blood Monitoring: </label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="blood_monitoring" id="inlineRadio1" value="1">
       </div>
     </div>
 
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Diabetes: </label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="diabetes" id="inlineRadio1" value="1" checked>
+        <input class="form-check-input" type="radio" name="diabetes" id="inlineRadio1" value="1">
         <label class="form-check-label" for="inlineRadio1">Normal</label>
       </div>
       <div class="form-check form-check-inline">
@@ -97,14 +100,14 @@
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Glucose Monitoring: </label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="glucuse_monitoring" id="inlineRadio1" value="true">
+        <input class="form-check-input" type="checkbox" name="glucuse_monitoring" id="inlineRadio1" value="1">
       </div>
     </div>
 
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Diabetes Treatment: </label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="diabetes_treatment" id="inlineRadio1" value="1" checked>
+        <input class="form-check-input" type="radio" name="diabetes_treatment" id="inlineRadio1" value="1">
         <label class="form-check-label" for="inlineRadio1">No</label>
       </div>
       <div class="form-check form-check-inline">
@@ -124,7 +127,7 @@
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Lipid disorder: </label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="lipid_disorder" id="inlineRadio1" value="1" checked>
+        <input class="form-check-input" type="radio" name="lipid_disorder" id="inlineRadio1" value="1">
         <label class="form-check-label" for="inlineRadio1">Total Colesterol >200</label>
       </div>
       <div class="form-check form-check-inline">
@@ -144,15 +147,14 @@
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Lipid disorder Monitoring: </label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="lipid_disorder_monitoring" id="inlineRadio1" value="true">
-        <label class="form-check-label" for="inlineRadio1">Yes</label>
+        <input class="form-check-input" type="checkbox" name="lipid_disorder_monitoring" id="inlineRadio1" value="1">
       </div>
     </div>
 
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Lipid disorder Treatment: </label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="lipid_disorder_treament" id="inlineRadio1" value="1" checked>
+        <input class="form-check-input" type="radio" name="lipid_disorder_treament" id="inlineRadio1" value="1">
         <label class="form-check-label" for="inlineRadio1">Yes</label>
       </div>
       <div class="form-check form-check-inline">
@@ -168,7 +170,7 @@
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Immunization</label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="immunization" id="inlineRadio1" value="1" checked>
+        <input class="form-check-input" type="radio" name="immunization" id="inlineRadio1" value="1">
         <label class="form-check-label" for="inlineRadio1">Complete</label>
       </div>
       <div class="form-check form-check-inline">
@@ -184,7 +186,7 @@
     <div class="form-group mt-6">
       <label for="formGroupExampleInput">Smoking cessation</label>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="smoking_cessation" id="inlineRadio1" value="1" checked>
+        <input class="form-check-input" type="radio" name="smoking_cessation" id="inlineRadio1" value="1">
         <label class="form-check-label" for="inlineRadio1">Never smoke</label>
       </div>
       <div class="form-check form-check-inline">
@@ -196,7 +198,10 @@
         <label class="form-check-label" for="inlineRadio2">Former smoker</label>
       </div>
     </div>
-
-
+    <div class="form-check form-check-inline mt-5">
+        <button type="submit" class="btn btn-primary">
+            Save
+        </button>
+    </div>
   </form>
 </div>
