@@ -23,7 +23,7 @@ defmodule PreventWeb.Router do
 
     get "/clinic", ClinicController, :index
     get "/clinic/detail", ClinicController, :detail
-    get "clinic/new", ClinicController, :new
+    get "/clinic/new", ClinicController, :new
     #Save clinic adult
     post "/clinic/adult/new", ClinicController, :new_adult
 

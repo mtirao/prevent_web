@@ -44,7 +44,11 @@ defmodule PreventWeb.MainController do
   end
 
   def home(conn, _params) do
-    render(conn, "patient.html")
+    patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
+
+    patients =  patientsList |> Enum.with_index
+
+    render(conn, "patient.html", name: "", patients: patients , val: 0)
   end
 
 

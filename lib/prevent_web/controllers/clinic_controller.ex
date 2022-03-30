@@ -22,16 +22,33 @@ defmodule PreventWeb.ClinicController do
 
         render(conn, "clinic.html", clinic: adultsList, patient_id: params["patient_id"])
       else
-        render(conn, "new_adult.html", csrf_token: token, error_type: "", patient_id: params["patient_id"])
+        render_to_adult("new_adult.html", conn, "", %{"patient_id" => params["patient_id"]})
       end
+    else
+      render_to_adult("new_adult.html", conn, "", %{"patient_id" => params["patient_id"]})
     end
 
-    render(conn, "new_adult.html", csrf_token: token, error_type: "", patient_id: params["patient_id"])
+
   end
 
   def new(conn, params) do
-    token = get_csrf_token()
-    render(conn, "new_adult.html", csrf_token: token, error_type: "", patient_id: params["patient_id"])
+
+    url = "http://localhost:3200/api/prevent/adult/last"
+    headers = [{"Content-type", "application/json"}]
+    response = HTTPoison.get!(url, headers, [])
+
+    if response.status_code == 200 do
+      adult = Jason.decode!(response.body)
+
+      if adult["nutritionalvalue"] == 0 do
+        render_to_adult("new_adult.html", conn, "", adult)
+      else
+        render_to_adult("new_adult.html", conn, "", adult)
+      end
+    else
+      render_to_adult("new_adult.html", conn, "", %{"patient_id" => params["patient_id"]})
+    end
+
   end
 
   def detail(conn, params) do
@@ -44,68 +61,91 @@ defmodule PreventWeb.ClinicController do
     if response.status_code == 200 do
       adult = Jason.decode!(response.body)
 
-      token = get_csrf_token()
 
-      IO.puts(adult["nutritionalvalue"])
-
-      nutritional_value_normal = selection_value(adult["nutritionalvalue"], 1)
-      nutritional_value_overweight = selection_value(adult["nutritionalvalue"], 2)
-      nutritional_value_obesity = selection_value(adult["nutritionalvalue"], 3)
-      nutritional_value_underweight = selection_value(adult["nutritionalvalue"], 4)
-      nutritional_monitoring = if adult["nutritionalmonitoring"], do: "checked", else: ""
-      blood_monitoring = if adult["bloodpressuremonitoring"], do: "checked", else: ""
-      glucose_monitoring = if adult["glucosemonitoring"], do: "checked", else: ""
-      lipid_disorder_monitoring = if adult["lipiddisordermonitoring"], do: "checked", else: ""
-      diabetes_treatment_no = selection_value(adult["diabetestreatment"], 1)
-      diabetes_treatment_ado = selection_value(adult["diabetestreatment"], 2)
-      diabetes_treatment_insulin = selection_value(adult["diabetestreatment"], 3)
-      diabetes_treatment_ditetic_hygiene = selection_value(adult["diabetestreatment"], 4)
-      lipid_disorder_200 = selection_value(adult["lipiddisorder"], 1)
-      lipid_disorder_160 = selection_value(adult["lipiddisorder"], 2)
-      lipid_disorder_40 = selection_value(adult["lipiddisorder"], 3)
-      lipid_disorder_150 = selection_value(adult["lipiddisorder"], 4)
-      lipid_disorder_treament_yes = selection_value(adult["lipisdisordertreatment"], 1)
-      lipid_disorder_treament_no = selection_value(adult["lipisdisordertreatment"], 2)
-      lipid_disorder_treament_monitoring = selection_value(adult["lipisdisordertreatment"], 3)
-      immunization_complete = selection_value(adult["lipisdisordertreatment"], 1)
-      immunization_incomplete = selection_value(adult["lipisdisordertreatment"], 2)
-      immunization_nd = selection_value(adult["lipisdisordertreatment"], 3)
-      smoking_cessation_never_smoke = selection_value(adult["smokingcessation"], 1)
-      smoking_cessation_smoke = selection_value(adult["smokingcessation"], 2)
-      smoking_cessation_former_smoker = selection_value(adult["smokingcessation"], 3)
-
-      render(conn, "detail_adult.html",  error_type: "", csrf_token: token,
-                  nutritional_value_normal: nutritional_value_normal,
-                  nutritional_value_overweight: nutritional_value_overweight,
-                  nutritional_value_obesity: nutritional_value_obesity,
-                  nutritional_value_underweight: nutritional_value_underweight,
-                  nutritional_monitoring: nutritional_monitoring,
-                  blood_pressure_systolic: adult["bloodpressuresystolic"],
-                  blood_pressure_diastolic: adult["bloodpressurediastolic"],
-                  blood_monitoring: blood_monitoring,
-                  glucose_monitoring: glucose_monitoring,
-                  lipid_disorder_monitoring: lipid_disorder_monitoring,
-                  diabetes_treatment_no: diabetes_treatment_no,
-                  diabetes_treatment_ado: diabetes_treatment_ado,
-                  diabetes_treatment_insulin: diabetes_treatment_insulin,
-                  diabetes_treatment_dietetic_hygiene: diabetes_treatment_ditetic_hygiene,
-                  lipid_disorder_200: lipid_disorder_200,
-                  lipid_disorder_160: lipid_disorder_160,
-                  lipid_disorder_40: lipid_disorder_40,
-                  lipid_disorder_150: lipid_disorder_150,
-                  lipid_disorder_treament_yes: lipid_disorder_treament_yes,
-                  lipid_disorder_treament_no: lipid_disorder_treament_no,
-                  lipid_disorder_treament_monitoring: lipid_disorder_treament_monitoring,
-                  immunization_complete: immunization_complete,
-                  immunization_incomplete: immunization_incomplete,
-                  immunization_nd: immunization_nd,
-                  smoking_cessation_never_smoke: smoking_cessation_never_smoke,
-                  smoking_cessation_smoke: smoking_cessation_smoke,
-                  smoking_cessation_former_smoker: smoking_cessation_former_smoker)
+      render_to_adult("detail_adult.html", conn, "", adult)
+    else
+      render_to_adult("detail_adult.html", conn, "", %{})
     end
 
-    render(conn, "detail_adult.html")
+
   end
+
+
+  def render_to_adult(page, conn, error_type, adult) do
+
+    token = get_csrf_token()
+
+    nutritional_value_normal = selection_value(adult["nutritionalvalue"], 1)
+    nutritional_value_overweight = selection_value(adult["nutritionalvalue"], 2)
+    nutritional_value_obesity = selection_value(adult["nutritionalvalue"], 3)
+    nutritional_value_underweight = selection_value(adult["nutritionalvalue"], 4)
+    nutritional_monitoring = if adult["nutritionalmonitoring"], do: "checked", else: ""
+    blood_monitoring = if adult["bloodpressuremonitoring"], do: "checked", else: ""
+    glucose_monitoring = if adult["glucosemonitoring"], do: "checked", else: ""
+    lipid_disorder_monitoring = if adult["lipiddisordermonitoring"], do: "checked", else: ""
+    diabetes_treatment_no = selection_value(adult["diabetestreatment"], 1)
+    diabetes_treatment_ado = selection_value(adult["diabetestreatment"], 2)
+    diabetes_treatment_insulin = selection_value(adult["diabetestreatment"], 3)
+    diabetes_treatment_ditetic_hygiene = selection_value(adult["diabetestreatment"], 4)
+    lipid_disorder_200 = selection_value(adult["lipiddisorder"], 1)
+    lipid_disorder_160 = selection_value(adult["lipiddisorder"], 2)
+    lipid_disorder_40 = selection_value(adult["lipiddisorder"], 3)
+    lipid_disorder_150 = selection_value(adult["lipiddisorder"], 4)
+    lipid_disorder_treament_yes = selection_value(adult["lipisdisordertreatment"], 1)
+    lipid_disorder_treament_no = selection_value(adult["lipisdisordertreatment"], 2)
+    lipid_disorder_treament_monitoring = selection_value(adult["lipisdisordertreatment"], 3)
+    immunization_complete = selection_value(adult["lipisdisordertreatment"], 1)
+    immunization_incomplete = selection_value(adult["lipisdisordertreatment"], 2)
+    immunization_nd = selection_value(adult["lipisdisordertreatment"], 3)
+    smoking_cessation_never_smoke = selection_value(adult["smokingcessation"], 1)
+    smoking_cessation_smoke = selection_value(adult["smokingcessation"], 2)
+    smoking_cessation_former_smoker = selection_value(adult["smokingcessation"], 3)
+
+    diabetes_normal = selection_value(adult["diabetes"], 1)
+    diabetes_peripheral_resistance = selection_value(adult["diabetes"], 2)
+    diabetes_dbt_I = selection_value(adult["diabetes"], 2)
+    diabetes_dbt_II = selection_value(adult["diabetes"], 2)
+
+    blood_pressure_systolic =  if adult["bloodpressuresystolic"] == nil, do: "", else: adult["bloodpressuresystolic"]
+    blood_pressure_diastolic = if adult["bloodpressurediastolic"] == nil, do: "", else: adult["bloodpressurediastolic"]
+
+
+    render(conn, page,  error_type: error_type, csrf_token: token,
+                nutritional_value_normal: nutritional_value_normal,
+                nutritional_value_overweight: nutritional_value_overweight,
+                nutritional_value_obesity: nutritional_value_obesity,
+                nutritional_value_underweight: nutritional_value_underweight,
+                nutritional_monitoring: nutritional_monitoring,
+                blood_pressure_systolic:  blood_pressure_systolic,
+                blood_pressure_diastolic: blood_pressure_diastolic,
+                blood_monitoring: blood_monitoring,
+                glucose_monitoring: glucose_monitoring,
+                lipid_disorder_monitoring: lipid_disorder_monitoring,
+                diabetes_treatment_no: diabetes_treatment_no,
+                diabetes_treatment_ado: diabetes_treatment_ado,
+                diabetes_treatment_insulin: diabetes_treatment_insulin,
+                diabetes_treatment_dietetic_hygiene: diabetes_treatment_ditetic_hygiene,
+                lipid_disorder_200: lipid_disorder_200,
+                lipid_disorder_160: lipid_disorder_160,
+                lipid_disorder_40: lipid_disorder_40,
+                lipid_disorder_150: lipid_disorder_150,
+                lipid_disorder_treament_yes: lipid_disorder_treament_yes,
+                lipid_disorder_treament_no: lipid_disorder_treament_no,
+                lipid_disorder_treament_monitoring: lipid_disorder_treament_monitoring,
+                immunization_complete: immunization_complete,
+                immunization_incomplete: immunization_incomplete,
+                immunization_nd: immunization_nd,
+                smoking_cessation_never_smoke: smoking_cessation_never_smoke,
+                smoking_cessation_smoke: smoking_cessation_smoke,
+                smoking_cessation_former_smoker: smoking_cessation_former_smoker,
+                diabetes_normal: diabetes_normal,
+                diabetes_peripheral_resistance: diabetes_peripheral_resistance,
+                diabetes_dbt_I: diabetes_dbt_I,
+                diabetes_dbt_II: diabetes_dbt_II,
+                patient_id: adult["patient_id"])
+
+  end
+
 
   def new_adult(conn, params) do
 
@@ -120,7 +160,7 @@ defmodule PreventWeb.ClinicController do
       redirect(conn, to: "/clinic")
     else
       token = get_csrf_token()
-      render(conn, "new_adult.html", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
+      render(conn, "new_adult_update.html", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
     end
   end
 
@@ -148,7 +188,9 @@ defmodule PreventWeb.ClinicController do
     height = Helper.string_to_float(params["height"]) / 100.0
     weight = Helper.string_to_float(params["weight"])
 
-    nutritionalvalue = Helper.imc(height, weight)
+    IO.puts("Nutritional value:#{params["nutritional_value"]}")
+
+    nutritionalvalue = if params["nutritional_value"] == nil, do: Helper.imc(height, weight), else:  Helper.string_to_integer(params["nutritional_value"])
 
     patientid = Helper.string_to_integer(params["patient_id"])
 

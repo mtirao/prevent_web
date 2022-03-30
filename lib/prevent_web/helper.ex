@@ -1,14 +1,20 @@
 defmodule Helper do
 
   def imc(height, weight) do
-    imc = weight / (height * height)
-    IO.puts("IMC: #{imc}")
-    cond do
-      imc < 18.5 ->  4
-      imc > 18.5 and imc <= 25 -> 1
-      imc > 25 and imc <= 30 ->  2
-      imc > 30 -> 3
+    IO.puts("Height:#{height}, Weight:#{weight}")
+    if height != 0 do
+      imc = weight / (height * height)
+      IO.puts("IMC: #{imc}")
+      cond do
+        imc < 18.5 ->  4
+        imc > 18.5 and imc <= 25 -> 1
+        imc > 25 and imc <= 30 ->  2
+        imc > 30 -> 3
+      end
+    else
+      0
     end
+
   end
 
   def string_to_boolean(text) do
@@ -66,6 +72,7 @@ defmodule Helper do
       value == 1 -> "Normal"
       value == 2 ->   "Overweight"
       value == 3 -> "Obesity"
+      true -> "Unavailble"
     end
   end
 

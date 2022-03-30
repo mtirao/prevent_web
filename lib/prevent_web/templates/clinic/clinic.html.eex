@@ -39,7 +39,7 @@
       <h1>
         <div class="navbar-brand">Clinic</div>
           <a href="/clinic/new?patient_id=<%= @patient_id%>" class="btn btn-primary ml-1">New</a>
-      </h1>
+        </h1>
       <div class="table-responsive">
           <table class="table table-hover">
             <thead>
