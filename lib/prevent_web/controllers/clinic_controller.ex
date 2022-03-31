@@ -7,11 +7,11 @@ defmodule PreventWeb.ClinicController do
     userid = get_session(conn, :userid)
     IO.puts(userid)
 
-    url = "http://localhost:3200/api/prevent/adults"
+    patient = params["patient_id"]
+
+    url = "http://localhost:3200/api/prevent/adults/#{patient}"
     headers = [{"Content-type", "application/json"}]
     response = HTTPoison.get!(url, headers, [])
-
-    token = get_csrf_token()
 
     if response.status_code == 200 do
       adults = Jason.decode!(response.body)
@@ -20,12 +20,12 @@ defmodule PreventWeb.ClinicController do
 
         adultsList = adults_list(adults)
 
-        render(conn, "clinic.html", clinic: adultsList, patient_id: params["patient_id"])
+        render(conn, "clinic.html", clinic: adultsList, patient_id: patient)
       else
-        render_to_adult("new_adult.html", conn, "", %{"patient_id" => params["patient_id"]})
+        render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
       end
     else
-      render_to_adult("new_adult.html", conn, "", %{"patient_id" => params["patient_id"]})
+      render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
     end
 
 
@@ -157,10 +157,12 @@ defmodule PreventWeb.ClinicController do
     response = HTTPoison.post!(url, Jason.encode!(json), headers, [])
 
     if response.status_code == 201 do
-      redirect(conn, to: "/clinic")
+      adult = Jason.decode!(response.body)
+      patient = adult["patientid"]
+      redirect(conn, to: "/clinic?patient_id=#{patient}")
     else
       token = get_csrf_token()
-      render(conn, "new_adult_update.html", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
+      render(conn, "new_adult.html", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
     end
   end
 

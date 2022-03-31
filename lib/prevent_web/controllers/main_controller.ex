@@ -20,6 +20,7 @@ defmodule PreventWeb.MainController do
       firstname = profile["firstname"]
       lastname = profile["lastname"]
       conn = put_session(conn, :userid, profile["profileid"])
+      conn = put_session(conn, :username, "#{firstname} #{lastname}")
 
       patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
 

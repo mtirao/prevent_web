@@ -1,38 +1,18 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Prevent</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home">Patient</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/calendar">Calendar</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Options
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-       <div class="nav-item d-flex">
-        <a class="nav-link" href="/">Marcos Tirao</a>
-      </div>
+    <div class="topbar" data-dropdown="dropdown">
+        <div class="topbar-inner">
+            <div class="container">
+                <h3><a href="#">Prevent</a></h3>
+                <ul class="nav">
+                    <li class="active"><a href="/home">Home</a></li>
+                    <li><a href="/calendar">Calendar</a></li>
+                    <li><a href="#">Options</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 
 <%= if @error_type == "error" do %>
@@ -63,11 +43,11 @@
     <div class="d-flex flex-row mt-3">
       <div class="form-group mr-3">
         <label for="formGroupExampleInput">Blood pressure(systolic)</label>
-        <input type="text" value=<%= @blood_pressure_systolic %> name="blood_pressure_systolic" class="form-control" id="formGroupExampleInput" placeholder="">
+        <input type="text" value= "<%= @blood_pressure_systolic %>" name="blood_pressure_systolic" class="form-control" id="formGroupExampleInput" placeholder="">
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">Blood pressure(diastolic)</label>
-        <input type="text"  value=<%= @blood_pressure_diastolic %> name="blood_pressure_diastolic" class="form-control" id="formGroupExampleInput2" placeholder="">
+        <input type="text"  value= "<%= @blood_pressure_diastolic %>" name="blood_pressure_diastolic" class="form-control" id="formGroupExampleInput2" placeholder="">
       </div>
     </div>
 
