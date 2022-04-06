@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="topbar" data-dropdown="dropdown">
+        <div class="topbar-inner">
+            <div class="container">
+                <h3><a href="#">Prevent</a></h3>
+                <ul class="nav">
+                    <li class="active"><a href="/home">Home</a></li>
+                    <%= if @userrole == "admin" do %>
+                       <li><a href="#">Doctors</a></li>
+                    <% end %>
+                    <li><a href="/calendar">Calendar</a></li>
+                     <%= if @userrole == "admin" do %>
+                        <li><a href="#">Options</a></li>
+                    <% end %>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

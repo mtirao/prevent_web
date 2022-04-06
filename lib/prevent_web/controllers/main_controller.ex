@@ -21,12 +21,14 @@ defmodule PreventWeb.MainController do
       lastname = profile["lastname"]
       conn = put_session(conn, :userid, profile["profileid"])
       conn = put_session(conn, :username, "#{firstname} #{lastname}")
+      conn = put_session(conn, :userrole, profile["userrole"])
+
 
       patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
 
       patients =  patientsList |> Enum.with_index
 
-      render(conn, "patient.html", name: "#{firstname} #{lastname}", patients: patients , val: 0)
+      render(conn, "patient.html", name: "#{firstname} #{lastname}", patients: patients , val: 0, userrole: profile["userrole"])
     else
       token = get_csrf_token()
       render(conn, "index.html", error_message: "User or password incorrect",  csrf_token: token)
@@ -49,7 +51,8 @@ defmodule PreventWeb.MainController do
 
     patients =  patientsList |> Enum.with_index
 
-    render(conn, "patient.html", name: "", patients: patients , val: 0)
+
+    render(conn, "patient.html", name: "", patients: patients , val: 0, userrole: get_session(conn, :userrole))
   end
 
 

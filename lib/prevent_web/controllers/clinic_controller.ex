@@ -6,6 +6,7 @@ defmodule PreventWeb.ClinicController do
   def index(conn, params) do
     userid = get_session(conn, :userid)
     IO.puts(userid)
+    IO.puts(get_session(conn, :userrole))
 
     patient = params["patient_id"]
 
@@ -20,7 +21,7 @@ defmodule PreventWeb.ClinicController do
 
         adultsList = adults_list(adults)
 
-        render(conn, "clinic.html", clinic: adultsList, patient_id: patient)
+        render(conn, "clinic.html", clinic: adultsList, patient_id: patient, userrole: get_session(conn, :userrole))
       else
         render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
       end
@@ -142,7 +143,8 @@ defmodule PreventWeb.ClinicController do
                 diabetes_peripheral_resistance: diabetes_peripheral_resistance,
                 diabetes_dbt_I: diabetes_dbt_I,
                 diabetes_dbt_II: diabetes_dbt_II,
-                patient_id: adult["patient_id"])
+                patient_id: adult["patient_id"],
+                userrole: get_session(conn, :userrole))
 
   end
 
@@ -176,7 +178,7 @@ defmodule PreventWeb.ClinicController do
 
     diabetes = Helper.string_to_integer(params["diabetes"])
 
-    glocusemonitoring = Helper.string_to_boolean(params["glucuse_monitoring"])
+    glocusemonitoring = Helper.string_to_boolean(params["glocuse_monitoring"])
 
     diabetestreatment = Helper.string_to_integer(params["diabetes_treatment"])
 

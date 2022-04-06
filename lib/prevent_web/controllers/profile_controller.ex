@@ -4,11 +4,12 @@ defmodule PreventWeb.ProfileController do
   def index(conn, _params) do
     userid = get_session(conn, :userid)
     IO.puts(userid)
-    render(conn, "clinic.html")
+
+    render(conn, "clinic.html", userrole: get_session(conn, :userrole))
   end
 
-  def detail(conn, _params) do
-    render(conn, "detail.html")
+  def detail_patient(conn, _params) do
+    render(conn, "detail.html", userrole: get_session(conn, :userrole))
   end
 
   def save_patient(conn, params) do
@@ -56,14 +57,14 @@ defmodule PreventWeb.ProfileController do
       response = HTTPoison.post!(url_patient , Jason.encode!(patient_body), headers, [])
 
       if response.status_code == 201 do
-        render(conn, "new_patient.html", csrf_token: token, error_type: "success")
+        render(conn, "new_patient.html", csrf_token: token, error_type: "success", userrole: get_session(conn, :userrole))
       else
-        render(conn, "new_patient.html", csrf_token: token, error_type: "error")
+        render(conn, "new_patient.html", csrf_token: token, error_type: "error", userrole: get_session(conn, :userrole))
       end
 
     else
 
-      render(conn, "new_patient.html", csrf_token: token, error_type: "error")
+      render(conn, "new_patient.html", csrf_token: token, error_type: "error", userrole: get_session(conn, :userrole))
     end
 
 
@@ -71,6 +72,12 @@ defmodule PreventWeb.ProfileController do
 
   def new_patient(conn, _params) do
     token = get_csrf_token()
-    render(conn, "new_patient.html", csrf_token: token, error_type: "ok")
+    render(conn, "new_patient.html", csrf_token: token, error_type: "ok", userrole: get_session(conn, :userrole))
   end
+
+  def new_doctor(conn, _params) do
+    token = get_csrf_token()
+    render(conn, "new_doctor.html", csrf_token: token, error_type: "ok", userrole: get_session(conn, :userrole))
+  end
+
 end
