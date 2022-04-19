@@ -6,10 +6,17 @@
                 <ul class="nav">
                     <li class="active"><a href="/home">Home</a></li>
                     <%= if @userrole == "admin" do %>
-                       <li><a href="#">Doctors</a></li>
+                        <li><a href="/doctor">Doctors</a></li>
+                        <li><a href="/calendar">Calendar</a></li>
+                        <li><a href="#">Options</a></li>
                     <% end %>
-                    <li><a href="/calendar">Calendar</a></li>
-                     <%= if @userrole == "admin" do %>
+
+                    <%= if @userrole == "patient" do %>
+                        <li><a href="/calendar">Calendar</a></li>
+                    <% end %>
+
+                    <%= if @userrole == "doctor" do %>
+                        <li><a href="/calendar">Calendar</a></li>
                         <li><a href="#">Options</a></li>
                     <% end %>
 

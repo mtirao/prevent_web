@@ -20,6 +20,7 @@ defmodule PreventWeb.Router do
 
     post "/login", MainController, :login
     get "/home", MainController, :home
+    get "/doctor", MainController, :home_doctor
 
     get "/clinic", ClinicController, :index
     get "/clinic/detail", ClinicController, :detail
@@ -31,6 +32,11 @@ defmodule PreventWeb.Router do
 
     get "/patient/new", ProfileController, :new_patient
     post "/patient/save", ProfileController, :save_patient
+
+    get "/doctor/new", ProfileController, :new_doctor
+    get "/doctor/update", ProfileController, :update_doctor
+    post "/doctor/save", ProfileController, :save_doctor
+
   end
 
   # Other scopes may use custom stacks.

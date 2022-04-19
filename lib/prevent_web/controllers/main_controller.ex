@@ -46,6 +46,14 @@ defmodule PreventWeb.MainController do
             |> Map.put("patientid", patientid)
   end
 
+  def doctor_map(doctor) do
+    id = doctor["profileid"]
+    doctorid = doctor["doctorid"]
+
+    doctor |> Map.put("profileid", id)
+            |> Map.put("doctorid", doctorid)
+  end
+
   def home(conn, _params) do
     patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
 
@@ -55,12 +63,31 @@ defmodule PreventWeb.MainController do
     render(conn, "patient.html", name: "", patients: patients , val: 0, userrole: get_session(conn, :userrole))
   end
 
+  def home_doctor(conn, _params) do
+
+    doctorList = Enum.map(doctors(), fn x -> doctor_map(x) end)
+
+    render(conn, "doctor.html", doctors: doctorList |> Enum.with_index, userrole: get_session(conn, :userrole))
+
+  end
 
   def patients do
     headers = [{"Content-type", "application/json"}]
     url = "http://localhost:3000/api/prevent/patients"
     response = HTTPoison.get!(url, headers)
     if response.status_code == 200 do
+      Jason.decode!(response.body)
+    else
+      []
+    end
+  end
+
+  def doctors do
+    headers = [{"Content-type", "application/json"}]
+    url = "http://localhost:3000/api/prevent/doctors"
+    response = HTTPoison.get!(url, headers)
+    if response.status_code == 200 do
+      IO.puts(response.body)
       Jason.decode!(response.body)
     else
       []
