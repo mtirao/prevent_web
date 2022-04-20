@@ -83,4 +83,35 @@ defmodule Helper do
 
   end
 
+  def month_to_text(month) do
+    cond do
+      month == 1 -> "January"
+      month == 2 -> "February"
+      month == 3 -> "March"
+      month == 4 -> "April"
+      month == 5 -> "May"
+      month == 6 -> "June"
+      month == 7 -> "July"
+      month == 8 -> "August"
+      month == 9 -> "September"
+      month == 10 -> "October"
+      month == 11 -> "November"
+      month == 12 -> "December"
+      true -> "Unavailble"
+    end
+  end
+
+  def day_to_text(day) do
+    cond do
+      day == 1 -> "Monday"
+      day == 2 -> "Tuesday"
+      day == 3 -> "Wednesday"
+      day == 4 -> "Thursday"
+      day == 5 -> "Friday"
+      day == 6 -> "Saturday"
+      day == 7 -> "Sunday"
+      true -> "Unavailble"
+    end
+  end
+
 end
