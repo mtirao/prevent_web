@@ -28,7 +28,7 @@
                             <td><%=times.time%></td>
                             <td colspan="2"><%=times.patient%></td>
                         </tr>
-                    <%= end %>
+                    <% end %>
                 <% end %>
             <% end %>
 
