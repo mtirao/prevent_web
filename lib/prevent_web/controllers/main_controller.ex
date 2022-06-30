@@ -54,6 +54,7 @@ defmodule PreventWeb.MainController do
             |> Map.put("doctorid", doctorid)
   end
 
+
   def home(conn, _params) do
     patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
 
@@ -71,6 +72,16 @@ defmodule PreventWeb.MainController do
 
   end
 
+  def home_hospital(conn, _params) do
+
+   # hospitalList = Enum.map(hospitals(), fn x -> hospital_map(x) end)
+
+    hospitalList = hospitals()
+
+    render(conn, "hospital.html", hospitals: hospitalList |> Enum.with_index, userrole: get_session(conn, :userrole))
+
+  end
+
   def patients do
     headers = [{"Content-type", "application/json"}]
     url = "http://localhost:3000/api/prevent/patients"
@@ -85,6 +96,18 @@ defmodule PreventWeb.MainController do
   def doctors do
     headers = [{"Content-type", "application/json"}]
     url = "http://localhost:3000/api/prevent/doctors"
+    response = HTTPoison.get!(url, headers)
+    if response.status_code == 200 do
+      IO.puts(response.body)
+      Jason.decode!(response.body)
+    else
+      []
+    end
+  end
+
+  def hospitals do
+    headers = [{"Content-type", "application/json"}]
+    url = "http://localhost:3100/api/prevent/hospitals"
     response = HTTPoison.get!(url, headers)
     if response.status_code == 200 do
       IO.puts(response.body)

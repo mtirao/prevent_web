@@ -8,7 +8,17 @@
                     <%= if @userrole == "admin" do %>
                         <li><a href="/doctor">Doctors</a></li>
                         <li><a href="/calendar">Calendar</a></li>
-                        <li><a href="#">Options</a></li>
+                        <li>
+                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="/hospital">Hospitals</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Doctors Availability</a>
+                            </div>
+                        </li>
                     <% end %>
 
                     <%= if @userrole == "patient" do %>

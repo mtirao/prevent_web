@@ -30,8 +30,8 @@ defmodule PreventWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
-    plug Phoenix.CodeReloader
+    #plug Phoenix.LiveReloader
+    #plug Phoenix.CodeReloader
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

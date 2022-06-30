@@ -9,6 +9,7 @@ defmodule PreventWeb.Router do
     plug :put_secure_browser_headers
   end
 
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -21,6 +22,7 @@ defmodule PreventWeb.Router do
     post "/login", MainController, :login
     get "/home", MainController, :home
     get "/doctor", MainController, :home_doctor
+    get "/hospital", MainController, :home_hospital
 
     get "/clinic", ClinicController, :index
     get "/clinic/detail", ClinicController, :detail
@@ -29,6 +31,10 @@ defmodule PreventWeb.Router do
     post "/clinic/adult/new", ClinicController, :new_adult
 
     get "/calendar", CalendarController, :index
+    get "/hospital/new", CalendarController, :new_hospital
+    get "/hospital/update", CalendarController, :update_hospital
+    post "/hospital/save", CalendarController, :save_hospital
+
 
     get "/patient/new", ProfileController, :new_patient
     post "/patient/save", ProfileController, :save_patient
