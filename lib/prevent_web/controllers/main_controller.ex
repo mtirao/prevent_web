@@ -82,6 +82,15 @@ defmodule PreventWeb.MainController do
 
   end
 
+  def home_calendar_doctor(conn, _params) do
+
+
+    doctorList = Enum.map(doctors(), fn x -> doctor_map(x) end)
+
+    render(conn, "calendar_doctor.html", doctors: doctorList |> Enum.with_index, userrole: get_session(conn, :userrole))
+
+  end
+
   def patients do
     headers = [{"Content-type", "application/json"}]
     url = "http://localhost:3000/api/prevent/patients"

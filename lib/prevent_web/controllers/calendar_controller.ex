@@ -149,5 +149,93 @@ defmodule PreventWeb.CalendarController do
 
   end
 
+  def hospital_list(conn, param) do
+    hospitalList =  PreventWeb.MainController.hospitals()
+
+    doctorid = param["doctor_id"]
+    render(conn, "calendar_hospital.html", doctorid: doctorid, hospitals: hospitalList |> Enum.with_index, userrole: get_session(conn, :userrole))
+  end
+
+  def doctor_availability(conn, param) do
+
+    token = get_csrf_token()
+
+    hospitalid = param["hospital_id"]
+    doctorid = param["doctor_id"]
+
+    render(conn, "doctor_availalability.html",
+      error_type: "ok",
+      csrf_token: token,
+      hospitalid: hospitalid,
+      doctorid: doctorid,
+      userrole: get_session(conn, :userrole))
+
+  end
+
+  defp convert_available_day(param) do
+
+    sun = Helper.string_to_integer(param["sun"])
+    mon = Helper.string_to_integer(param["mon"])
+    tue = Helper.string_to_integer(param["tue"])
+    wed = Helper.string_to_integer(param["wed"])
+    thu = Helper.string_to_integer(param["thu"])
+    fri = Helper.string_to_integer(param["fri"])
+    sat = Helper.string_to_integer(param["sat"])
+
+    sun + mon + tue + wed + thu + fri + sat
+  end
+
+  defp time_to_float(time) do
+    times = List.to_tuple(String.split(time, ":"))
+    hour = String.trim(elem(times, 0))
+    min = String.trim(elem(times, 1))
+
+    hour_i = Helper.string_to_integer(hour)
+    min_i = Helper.string_to_integer(min)
+
+    hour_i + (min_i / 60)
+  end
+
+  def save_doctor_availability(conn, param) do
+    token = get_csrf_token()
+
+    hospitalid = Helper.string_to_integer(param["hospital_id"])
+    doctorid = Helper.string_to_integer(param["doctor_id"])
+    availableday = convert_available_day(param)
+    endshift = time_to_float(param["to"])
+    startshift = time_to_float(param["from"])
+
+    url = "http://localhost:3100/api/prevent/doctor"
+    headers = [{"Content-type", "application/json"}]
+
+    body = %{"availableday" => availableday,
+      "doctorid" => doctorid,
+      "endshift" => endshift,
+      "hospitalid" => hospitalid,
+      "startshift" => startshift
+    }
+
+
+
+    response = HTTPoison.post!(url, Jason.encode!(body), headers, [])
+
+    if response.status_code == 201 do
+
+      render(conn, "doctor_availalability.html",
+        error_type: "success",
+        csrf_token: token,
+        hospitalid: hospitalid,
+        doctorid: doctorid,
+        userrole: get_session(conn, :userrole))
+    else
+      render(conn, "doctor_availalability.html",
+        error_type: "error",
+        csrf_token: token,
+        hospitalid: hospitalid,
+        doctorid: doctorid,
+        userrole: get_session(conn, :userrole))
+    end
+
+  end
 
 end

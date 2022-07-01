@@ -23,6 +23,7 @@ defmodule PreventWeb.Router do
     get "/home", MainController, :home
     get "/doctor", MainController, :home_doctor
     get "/hospital", MainController, :home_hospital
+    get "/calendar/doctor", MainController, :home_calendar_doctor
 
     get "/clinic", ClinicController, :index
     get "/clinic/detail", ClinicController, :detail
@@ -31,9 +32,13 @@ defmodule PreventWeb.Router do
     post "/clinic/adult/new", ClinicController, :new_adult
 
     get "/calendar", CalendarController, :index
+    get "/calendar/hospital", CalendarController, :hospital_list
+    get "/calendar/doctor/availability", CalendarController, :doctor_availability
+    post "/calendar/doctor/availability", CalendarController, :save_doctor_availability
     get "/hospital/new", CalendarController, :new_hospital
     get "/hospital/update", CalendarController, :update_hospital
     post "/hospital/save", CalendarController, :save_hospital
+
 
 
     get "/patient/new", ProfileController, :new_patient

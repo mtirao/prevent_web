@@ -1,0 +1,84 @@
+
+<script type="text/javascript">
+     $(function () {
+                $('#datetimepicker1').datetimepicker({format: 'YYYY-MM-DD'});
+            });
+</script>
+
+<%= render PreventWeb.MenuBarView, "menu_bar.html", conn: @conn, userrole: @userrole %>
+
+
+<%= if @error_type == "success" do %>
+    <div class="alert alert-success" role="alert">
+        Success!
+    </div>
+<% end %>
+
+<%= if @error_type == "error" do %>
+    <div class="alert alert-danger" role="alert">
+        Something bad just happened. Trying again later.
+    </div>
+<% end %>
+
+
+
+<div class="container mt-4">
+    <form method="POST" action="/calendar/doctor/availability">
+        <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+
+        <input type="hidden" name="doctor_id" value="<%= @doctorid %>">
+        <input type="hidden" name="hospital_id" value="<%= @hospitalid %>">
+
+         <div class="form-group mt-6">
+            <label for="formGroupExampleInput">Available days: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="sun" id="inlineRadio1" value="1">
+                <label class="form-check-label" for="inlineRadio1">Sun</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="mon" id="inlineRadio2" value="2">
+                <label class="form-check-label" for="inlineRadio2">Mon</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="tue" id="inlineRadio3" value="4">
+                <label class="form-check-label" for="inlineRadio3">Tue</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="wed" id="inlineRadi4" value="8">
+                <label class="form-check-label" for="inlineRadio4">Wed</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="thu" id="inlineRadio5" value="16">
+                <label class="form-check-label" for="inlineRadio5">Thu</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="fri" id="inlineRadio6" value="32">
+                <label class="form-check-label" for="inlineRadio6">Fri</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="sat" id="inlineRadio7" value="64">
+                <label class="form-check-label" for="inlineRadio7">Sat</label>
+            </div>
+        </div>
+
+         <div class="d-flex flex-row mt-3">
+
+            <div class="form-group mr-3">
+                <label for="formGroupExampleInput">From:</label>
+                <input type="text" name="from" class="form-control" id="formGroupExampleInput" placeholder="11:00">
+            </div>
+            <div class="form-group ml-5">
+                <label for="formGroupExampleInput2">To:</label>
+                <input type="text" name="to" class="form-control" id="formGroupExampleInput2" placeholder="12:00">
+            </div>
+        </div>
+
+        <div class="form-check form-check-inline mt-5">
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </div>
+
+
+    </form>
+</div>

@@ -16,7 +16,7 @@
                             <a class="dropdown-item" href="#">Settings</a>
                             <a class="dropdown-item" href="/hospital">Hospitals</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Doctors Availability</a>
+                            <a class="dropdown-item" href="/calendar/doctor">Doctors Availability</a>
                             </div>
                         </li>
                     <% end %>
