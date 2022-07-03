@@ -20,6 +20,11 @@
     </div>
 <% end %>
 
+<%= if @error_type == "ok" do %>
+    <div class="alert alert-primary" role="alert">
+    So far so good. It only remains to choose schedules
+    </div>
+<% end %>
 
 
 <div class="container mt-4">

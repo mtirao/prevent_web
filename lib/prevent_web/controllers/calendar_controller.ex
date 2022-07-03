@@ -5,8 +5,6 @@ defmodule PreventWeb.CalendarController do
 
     current_appoints = Enum.map(month_dates(), fn date -> month_map(date) end)
 
-    IO.puts("Is List:#{is_list(current_appoints)}")
-
     render(conn, "calendar.html", userrole: get_session(conn, :userrole), appointments: current_appoints)
   end
 
@@ -25,10 +23,33 @@ defmodule PreventWeb.CalendarController do
     day_of_week = :calendar.day_of_the_week(date.year, date.month, date.day)
 
     month |> Map.put("date_text", "#{Helper.day_to_text(day_of_week)}, #{Helper.month_to_text(date.month)} #{date.day}")
-          |>  Map.put("appointment", [%{time: "8:00 - 9:00", patient: "Marcos Tirao"}])
+          |> Map.put("date_value", "#{Helper.day_to_text(day_of_week)}, #{Helper.month_to_text(date.month)} #{date.day}")
+          |> Map.put("appointment", [%{time: "8:00 - 9:00", patient: "Marcos Tirao"}])
 
   end
 
+  def month_map_appointment(month) do
+
+    {:ok, date} = month.date
+
+    day_of_week = :calendar.day_of_the_week(date.year, date.month, date.day)
+
+    month |> Map.put("date_text", "#{Helper.day_to_text(day_of_week)}, #{Helper.month_to_text(date.month)} #{date.day}")
+          |> Map.put("date_value", "#{date.year}-#{date.month}-#{date.day}")
+          |>  Map.put("appointment", [%{time: "8:00", patient: "Marcos Tirao", available: "false", }, %{time: "8:30", patient: "Available", available: "true"}, %{time: "9:00", patient: "Available", available: "true"}])
+
+  end
+
+  def patient_map(patient) do
+    {:ok, value} = DateTimeParser.parse(patient["birthday"])
+    age = trunc(NaiveDateTime.diff(NaiveDateTime.utc_now, value) / 31536000)
+    id = patient["profileid"]
+    patientid = patient["patientid"]
+
+    patient |> Map.put("age", age)
+            |> Map.put("profileid", id)
+            |> Map.put("patientid", patientid)
+  end
 
   def new_hospital(conn, _params) do
     token = get_csrf_token()
@@ -235,6 +256,44 @@ defmodule PreventWeb.CalendarController do
         doctorid: doctorid,
         userrole: get_session(conn, :userrole))
     end
+  end
+
+  def appointment_doctor(conn, params) do
+
+    available = params["available"]
+    doctorid = params["doctor_id"]
+    date = params["date"]
+
+    IO.puts(available)
+
+    cond do
+      available == "true" -> patientsList = Enum.map(Helper.patients(), fn x -> patient_map(x) end)
+                patients =  patientsList |> Enum.with_index
+                render(conn, "patient_appoitment.html",
+                      doctorid: doctorid,
+                      date: date,
+                      patients: patients,
+                      val: 0,
+                      userrole: get_session(conn, :userrole))
+      available == "false" -> render_appointment_error(conn, doctorid, "error")
+      true -> render_appointment_error(conn, doctorid, "ok")
+
+
+    end
+
+  end
+
+  defp render_appointment_error(conn, doctorid, response) do
+    current_appoints = Enum.map(month_dates(), fn date -> month_map_appointment(date) end)
+
+    render(conn, "appointment_doctor.html",
+                userrole: get_session(conn, :userrole),
+                appointments: current_appoints,
+                doctorid: doctorid,
+                error_type: response)
+  end
+
+  def appointment_doctor_save(conn, _params) do
 
   end
 

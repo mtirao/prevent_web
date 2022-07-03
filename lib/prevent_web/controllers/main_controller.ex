@@ -24,7 +24,7 @@ defmodule PreventWeb.MainController do
       conn = put_session(conn, :userrole, profile["userrole"])
 
 
-      patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
+      patientsList = Enum.map(Helper.patients(), fn x -> patient_map(x) end)
 
       patients =  patientsList |> Enum.with_index
 
@@ -56,7 +56,7 @@ defmodule PreventWeb.MainController do
 
 
   def home(conn, _params) do
-    patientsList = Enum.map(patients(), fn x -> patient_map(x) end)
+    patientsList = Enum.map(Helper.patients(), fn x -> patient_map(x) end)
 
     patients =  patientsList |> Enum.with_index
 
@@ -84,23 +84,28 @@ defmodule PreventWeb.MainController do
 
   def home_calendar_doctor(conn, _params) do
 
-
     doctorList = Enum.map(doctors(), fn x -> doctor_map(x) end)
 
     render(conn, "calendar_doctor.html", doctors: doctorList |> Enum.with_index, userrole: get_session(conn, :userrole))
 
   end
 
-  def patients do
-    headers = [{"Content-type", "application/json"}]
-    url = "http://localhost:3000/api/prevent/patients"
-    response = HTTPoison.get!(url, headers)
-    if response.status_code == 200 do
-      Jason.decode!(response.body)
-    else
-      []
-    end
+  def home_calendar_doctor_new(conn, _params) do
+
+    doctorList = Enum.map(doctors(), fn x -> doctor_map(x) end)
+
+    render(conn, "calendar_doctor_new.html", doctors: doctorList |> Enum.with_index, userrole: get_session(conn, :userrole))
+
   end
+
+  def home_calendar_realm_new(conn, _params) do
+
+    realmList = Enum.map(doctors(), fn x -> doctor_map(x) end)
+
+    render(conn, "calendar_realm_new.html", realms: realmList |> Enum.with_index, userrole: get_session(conn, :userrole))
+
+  end
+
 
   def doctors do
     headers = [{"Content-type", "application/json"}]
@@ -125,5 +130,18 @@ defmodule PreventWeb.MainController do
       []
     end
   end
+
+  def realms do
+    headers = [{"Content-type", "application/json"}]
+    url = "http://localhost:3100/api/prevent/hospitals"
+    response = HTTPoison.get!(url, headers)
+    if response.status_code == 200 do
+      IO.puts(response.body)
+      Jason.decode!(response.body)
+    else
+      []
+    end
+  end
+
 
 end

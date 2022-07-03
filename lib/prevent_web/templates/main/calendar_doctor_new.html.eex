@@ -18,7 +18,7 @@
   <tbody>
 
    <%= for {doctor, i} <- @doctors do %>
-        <tr onclick= 'window.open("/calendar/hospital?doctor_id=<%=doctor["doctorid"]%>", "_self")'%>
+        <tr onclick= 'window.open("/appointment/doctor?doctor_id=<%=doctor["doctorid"]%>", "_self")'%>
             <th scope="row"><%= i + 1%></th>
             <td> <%= doctor["firstname"]%> </td>
             <td><%= doctor["lastname"]%></td>

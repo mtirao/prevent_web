@@ -114,4 +114,16 @@ defmodule Helper do
     end
   end
 
+  def patients do
+    headers = [{"Content-type", "application/json"}]
+    url = "http://localhost:3000/api/prevent/patients"
+    response = HTTPoison.get!(url, headers)
+    if response.status_code == 200 do
+      Jason.decode!(response.body)
+    else
+      []
+    end
+  end
+
+
 end

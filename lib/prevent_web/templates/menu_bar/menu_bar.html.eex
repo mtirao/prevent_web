@@ -7,16 +7,27 @@
                     <li class="active"><a href="/home">Home</a></li>
                     <%= if @userrole == "admin" do %>
                         <li><a href="/doctor">Doctors</a></li>
-                        <li><a href="/calendar">Calendar</a></li>
+                        <li>
+                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Calendar
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/calendar">List Appoitment</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/calendar/doctor/new">New Appoitment by Doctor</a>
+                                <!-- <a class="dropdown-item" href="/calendar/realm/new">New Appoitment by Realm</a> -->
+                            </div>
+                        </li>
                         <li>
                             <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Options
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <a class="dropdown-item" href="/hospital">Hospitals</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/calendar/doctor">Doctors Availability</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="/hospital">Hospitals</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/calendar/doctor">New Doctor Hour</a>
+                                <a class="dropdown-item" href="/calendar/doctor">Doctors's Hours List</a>
                             </div>
                         </li>
                     <% end %>
