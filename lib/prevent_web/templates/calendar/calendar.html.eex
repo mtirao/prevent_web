@@ -1,6 +1,12 @@
 
 <%= render PreventWeb.MenuBarView, "menu_bar.html", conn: @conn, userrole: @userrole %>
 
+<%= if @error_type == "variable" do %>
+    <div class="alert alert-primary" role="alert">
+        <%=@message%>
+    </div>
+<% end %>
+
 <div class="mt-3">
 
     <div class="float-right">

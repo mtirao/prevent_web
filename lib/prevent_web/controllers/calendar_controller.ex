@@ -1,11 +1,11 @@
 defmodule PreventWeb.CalendarController do
   use PreventWeb, :controller
 
-  def index(conn, _params) do
+  def index(conn, params) do
 
     current_appoints = Enum.map(month_dates(), fn date -> month_map(date) end)
 
-    render(conn, "calendar.html", userrole: get_session(conn, :userrole), appointments: current_appoints)
+    render(conn, "calendar.html", error_type: params["error_type"], message: params["message"] , userrole: get_session(conn, :userrole), appointments: current_appoints)
   end
 
   def month_dates do
@@ -22,9 +22,12 @@ defmodule PreventWeb.CalendarController do
 
     day_of_week = :calendar.day_of_the_week(date.year, date.month, date.day)
 
+    datemonth = if date.month < 10, do: "0#{date.month}", else: "#{date.month}"
+    dateday = if date.month < 10, do: "0#{date.day}", else: "#{date.day}"
+
     month |> Map.put("date_text", "#{Helper.day_to_text(day_of_week)}, #{Helper.month_to_text(date.month)} #{date.day}")
-          |> Map.put("date_value", "#{Helper.day_to_text(day_of_week)}, #{Helper.month_to_text(date.month)} #{date.day}")
-          |> Map.put("appointment", [%{time: "8:00 - 9:00", patient: "Marcos Tirao"}])
+          |> Map.put("date_value", "#{date.year}-#{datemonth}-#{dateday}")
+          |> Map.put("appointment", [%{time: "08:00", patient: "Marcos Tirao"}])
 
   end
 
@@ -34,9 +37,12 @@ defmodule PreventWeb.CalendarController do
 
     day_of_week = :calendar.day_of_the_week(date.year, date.month, date.day)
 
+    datemonth = if date.month < 10, do: "0#{date.month}", else: "#{date.month}"
+    dateday = if date.month < 10, do: "0#{date.day}", else: "#{date.day}"
+
     month |> Map.put("date_text", "#{Helper.day_to_text(day_of_week)}, #{Helper.month_to_text(date.month)} #{date.day}")
-          |> Map.put("date_value", "#{date.year}-#{date.month}-#{date.day}")
-          |>  Map.put("appointment", [%{time: "8:00", patient: "Marcos Tirao", available: "false", }, %{time: "8:30", patient: "Available", available: "true"}, %{time: "9:00", patient: "Available", available: "true"}])
+          |> Map.put("date_value", "#{date.year}-#{datemonth}-#{dateday}")
+          |>  Map.put("appointment", [%{time: "08:00", patient: "Marcos Tirao", available: "false", }, %{time: "08:30", patient: "Available", available: "true"}, %{time: "09:00", patient: "Available", available: "true"}])
 
   end
 
@@ -263,6 +269,7 @@ defmodule PreventWeb.CalendarController do
     available = params["available"]
     doctorid = params["doctor_id"]
     date = params["date"]
+    time = params["time"]
 
     IO.puts(available)
 
@@ -274,7 +281,8 @@ defmodule PreventWeb.CalendarController do
                       date: date,
                       patients: patients,
                       val: 0,
-                      userrole: get_session(conn, :userrole))
+                      userrole: get_session(conn, :userrole),
+                      time: time)
       available == "false" -> render_appointment_error(conn, doctorid, "error")
       true -> render_appointment_error(conn, doctorid, "ok")
 
@@ -293,7 +301,32 @@ defmodule PreventWeb.CalendarController do
                 error_type: response)
   end
 
-  def appointment_doctor_save(conn, _params) do
+  def appointment_doctor_save(conn, params) do
+
+    doctorid = Helper.string_to_integer(params["doctor_id"])
+    patientid = Helper.string_to_integer(params["patient_id"])
+    time = params["time"]
+    date = params["date"]
+
+    url = "http://localhost:3100/api/prevent/calendar"
+    headers = [{"Content-type", "application/json"}]
+
+    body = %{"doctorid" => doctorid,
+      "patientid" => patientid,
+      "date" => "#{date}T#{time}:00",
+    }
+
+    response = HTTPoison.post!(url, Jason.encode!(body), headers, [])
+
+    if response.status_code == 201 do
+
+      redirect(conn, to: "/calendar?error_type=variable&message=Your%20appointment%20was%20confirmed")
+
+    else
+
+      redirect(conn, to: "/appointment/doctor?doctor_id=#{doctorid}&available=false")
+
+    end
 
   end
 

@@ -1,6 +1,10 @@
 
  <%= render PreventWeb.MenuBarView, "menu_bar.html", conn: @conn, userrole: @userrole%>
 
+<div class="alert alert-primary" role="alert">
+  Please, choose a patient from the  list below
+</div>
+
 <div class="mt-3">
   <table class="table table-hover">
   <thead>
@@ -14,7 +18,7 @@
   <tbody>
 
      <%= for {patient, i} <- @patients do %>
-        <tr onclick= 'window.open("/clinic?age=<%=patient["age"]%>&profile_id=<%=patient["profileid"]%>&patient_id=<%=patient["patientid"]%>&doctor_id=<%=@doctorid%>&date=<%=@date%>", "_self")'  <%= patient["action"] %> >
+        <tr onclick= 'window.open("/appointment/doctor/save?age=<%=patient["age"]%>&profile_id=<%=patient["profileid"]%>&patient_id=<%=patient["patientid"]%>&doctor_id=<%=@doctorid%>&date=<%=@date%>&time=<%=@time%>", "_self")'  <%= patient["action"] %> >
             <th scope="row"><%= i + 1%></th>
             <td> <%= patient["firstname"]%> </td>
             <td><%= patient["lastname"]%></td>
