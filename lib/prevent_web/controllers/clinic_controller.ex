@@ -23,9 +23,11 @@ defmodule PreventWeb.ClinicController do
 
         render(conn, "clinic.html", clinic: adultsList, patient_id: patient, userrole: get_session(conn, :userrole))
       else
-        render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
+       # render_to_adult("new_gynocoligies.html", conn, "", %{"patient_id" => patient})
+       render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
       end
     else
+      # render_to_adult("new_gynocoligies.html", conn, "", %{"patient_id" => patient})
       render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
     end
 

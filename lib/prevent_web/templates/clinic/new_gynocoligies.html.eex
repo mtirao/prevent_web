@@ -1,0 +1,158 @@
+<%= render PreventWeb.MenuBarView, "menu_bar.html", conn: @conn, userrole: @userrole %>
+
+<%= if @error_type == "error" do %>
+    <div class="alert alert-danger" role="alert">
+        Something bad just happened. Trying again later.
+    </div>
+<% end %>
+
+<div class="container mt-4 row justify-content-center align-items-center">
+    <form class="form" method="POST" action="/clinic/gynocoligies/new">
+        <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+        <input type="hidden" name="patient_id" value="<%= @patient_id%>">
+        <div class="d-flex flex-row mt-3">
+            <div class="form-group mr-3">
+                <label for="formGroupExampleInput">Cervicouterino Tracking</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox"  name="glocuse_monitoring" value="1" id="inlineRadio1" <%= @glucose_monitoring %>>
+                </div>
+            </div>
+        </div>
+        <!-- Birth Control -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Birth Control: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Consejeria SI</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">No usa metodo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">DIU Hormonal</label>
+            </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">DIU no Hormonal</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="5"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Hormonal Comprimidos</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="6"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Hormonal Inyectable</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="7"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Hormonal Dispositivo Intradermico</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="8"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">De Barrera</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="birth_control" value="9"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Otros</label>
+            </div>
+        </div>
+
+        <!-- HPV Inmunization -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">HPV Inmunization: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Complete</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Incomplete</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Missing Data</label>
+            </div>
+        </div>
+
+       <!-- ITS Tracking -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">ITS Tracking: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Consejeria Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Negative Result</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">VIH+</label>
+            </div>
+             <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Sifilis+</label>
+            </div>
+             <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="5"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">VHB+</label>
+            </div>
+             <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="6"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">VHC+</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="its_tracking" value="7"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Others</label>
+            </div>
+        </div>
+
+        <!-- Last pap result -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Last Pap result: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase I: Normal</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase II: Presenciade Celulas atipias benignas</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase III: Displacia Leve</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase III: Displacia moderada</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="5"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase III: Displacia severa</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="6"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase IV: Carcinoma insitu</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="last_pap_result" value="7"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Clase V: Malignidad</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Team boarding: </label>
+            <input type="text"  value= "" name="blood_pressure_diastolic" class="form-control" id="formGroupExampleInput2" placeholder="">
+        </div>
+
+
+        <div class="form-check form-check-inline mt-5">
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </div>
+
+    </form>
+</div>

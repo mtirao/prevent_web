@@ -1,0 +1,161 @@
+<%= render PreventWeb.MenuBarView, "menu_bar.html", conn: @conn, userrole: @userrole %>
+
+<%= if @error_type == "error" do %>
+    <div class="alert alert-danger" role="alert">
+        Something bad just happened. Trying again later.
+    </div>
+<% end %>
+
+<div class="container mt-4 row justify-content-center align-items-center">
+    <form class="form" method="POST" action="/clinic/gynocoligies/new">
+        <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+        <input type="hidden" name="patient_id" value="<%= @patient_id%>">
+
+
+        <!-- Psicoprofilaxis-->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Psicoprofilaxis: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="psychoprophylaxis" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="psychoprophylaxis" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="psychoprophylaxis" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Se da consejeria</label>
+        </div>
+
+        <!-- Nutritional Status -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Nutritional Status: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="nutritional_status" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Normal</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="nutritional_status" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Over weight</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="nutritional_status" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Obese</label>
+            </div>
+             <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="nutritional_status" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Under weight</label>
+            </div>
+        </div>
+         <div class="d-flex flex-row mt-3">
+            <div class="form-group mr-3">
+                <label for="inlineCheckBox1">Nutritional Status Treatmeant:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox"  name="nutritional_status_treatmeant" value="1" id="inlineCheckBox1" <%= @glucose_monitoring %>>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phisics Activity Prescription -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Phisics Activity Prescription: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Consejeria</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Incomplete</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Missing Data</label>
+            </div>
+        </div>
+
+        <!-- Inmunization -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Inmunization: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Complete</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Incomplete</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="hpv_inmunization" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Missing Data</label>
+            </div>
+        </div>
+
+       <!-- Pesquisas perinatales -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Pesquisas perinatales: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="perinatal_investigations" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">PAP</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="perinatal_investigations" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">ECO</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="perinatal_investigations" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Rastreo Strepto B</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="perinatal_investigations" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">ITS Tracking</label>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row mt-3">
+            <div class="form-group mr-3">
+                <label for="inlineCheckBox1">Breast Feeding</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox"  name="glocuse_monitoring" value="1" id="inlineCheckBox1" <%= @glucose_monitoring %>>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row mt-3">
+            <div class="form-group mr-3">
+                <label for="inlineCheckBox1">ITS Promotion</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox"  name="glocuse_monitoring" value="1" id="inlineCheckBox1" <%= @glucose_monitoring %>>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consumo problematico -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Consumo Problematico</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="problematic_consumption" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Consejeria SI</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="problematic_consumption" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Consume Alcohol</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="problematic_consumption" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Fuma</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="problematic_consumption" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <label class="form-check-label" for="inlineRadio1">Otra</label>
+            </div>
+        </div>
+
+        <div class="form-check form-check-inline mt-5">
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </div>
+
+    </form>
+</div>
