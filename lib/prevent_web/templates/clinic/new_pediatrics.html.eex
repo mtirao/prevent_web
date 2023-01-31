@@ -7,22 +7,22 @@
 <% end %>
 
 <div class="container mt-4 row justify-content-center align-items-center">
-    <form class="form" method="POST" action="/clinic/gynocoligies/new">
+    <form class="form" method="POST" action="/clinic/pediatric/new">
         <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
         <input type="hidden" name="patient_id" value="<%= @patient_id%>">
         <!-- Inmunization -->
         <div class="form-group">
             <label for="formGroupExampleInput2">Inmunization: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inmunization" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="inmunization" value="1"  id="inlineRadio1" <%= @inmunization %>>
                 <label class="form-check-label" for="inlineRadio1">Complete</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inmunization" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="inmunization" value="2"  id="inlineRadio1" <%= @inmunization %>>
                 <label class="form-check-label" for="inlineRadio1">Incomplete</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inmunization" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="inmunization" value="3"  id="inlineRadio1" <%= @inmunization %>>
                 <label class="form-check-label" for="inlineRadio1">Missing Data</label>
         </div>
 
@@ -30,15 +30,15 @@
         <div class="form-group">
             <label for="formGroupExampleInput2">Breast Feeding: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="breast_feeding" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="breastfeeding" value="1"  id="inlineRadio1" <%= @breastfeeding %>>
                 <label class="form-check-label" for="inlineRadio1">Exclusive</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="breast_feeding" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="breastfeeding" value="2"  id="inlineRadio1" <%= @breastfeeding %>>
                 <label class="form-check-label" for="inlineRadio1">Parcial</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="breast_feeding" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="breastfeeding" value="3"  id="inlineRadio1" <%= @breastfeeding %>>
                 <label class="form-check-label" for="inlineRadio1">Artificial</label>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <div class="form-group mr-3">
                 <label for="inlineCheckBox1">Breast Feeding Promotion</label>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox"  name="glocuse_monitoring" value="1" id="inlineCheckBox1" <%= @glucose_monitoring %>>
+                    <input class="form-check-input" type="checkbox"  name="breastfeedingpromotion" value="1" id="inlineCheckBox1" <%= @breastfeedingpromotion %>>
                 </div>
             </div>
         </div>
@@ -56,19 +56,19 @@
         <div class="form-group">
             <label for="formGroupExampleInput2">Nutritional Status: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="nutritional_status" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="nutritionalstatus" value="1"  id="inlineRadio1" <%= @nutritionalstatus %>>
                 <label class="form-check-label" for="inlineRadio1">Normal</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="nutritional_status" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="nutritionalstatus" value="2"  id="inlineRadio1" <%= @nutritionalstatus %>>
                 <label class="form-check-label" for="inlineRadio1">Over weight</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="nutritional_status" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="nutritionalstatus" value="3"  id="inlineRadio1" <%= @nutritionalstatus %>>
                 <label class="form-check-label" for="inlineRadio1">Obese</label>
             </div>
              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="nutritional_status" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="nutritionalstatus" value="4"  id="inlineRadio1" <%= @nutritionalstatus %>>
                 <label class="form-check-label" for="inlineRadio1">Under weight</label>
             </div>
         </div>
@@ -77,7 +77,7 @@
             <div class="form-group mr-3">
                 <label for="inlineCheckBox1">Nutritional Promotion</label>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox"  name="nutritional_promotion" value="1" id="inlineCheckBox1" <%= @glucose_monitoring %>>
+                    <input class="form-check-input" type="checkbox"  name="nutritionalpromotion" value="1" id="inlineCheckBox1" <%= @nutritionalpromotion %>>
                 </div>
             </div>
         </div>
@@ -86,19 +86,19 @@
         <div class="form-group">
             <label for="formGroupExampleInput2">Oral Health: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="oral_health" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="oralhealth" value="1"  id="inlineRadio1" <%= @oralhealth %>>
                 <label class="form-check-label" for="inlineRadio1">Normal</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="last_pap_result" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="loralhealth" value="2"  id="inlineRadio1" <%= @oralhealth %>>
                 <label class="form-check-label" for="inlineRadio1">Caries en Diente Permanente</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="last_pap_result" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="oralhealth" value="3"  id="inlineRadio1" <%= @oralhealth %>>
                 <label class="form-check-label" for="inlineRadio1">Caries en Diente de leche</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="last_pap_result" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="oralhealth" value="4"  id="inlineRadio1" <%= @oralhealth %>>
                 <label class="form-check-label" for="inlineRadio1">Periodoncia</label>
             </div>
         </div>
@@ -106,7 +106,7 @@
             <div class="form-group mr-3">
                 <label for="inlineCheckBox1">Oral Health Promotion</label>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox"  name="oral_health_promotion" value="1" id="inlineCheckBox1" <%= @glucose_monitoring %>>
+                    <input class="form-check-input" type="checkbox"  name="oralhealthpromotion" value="1" id="inlineCheckBox1" <%= @oralhealthpromotion %>>
                 </div>
             </div>
         </div>
@@ -115,15 +115,15 @@
         <div class="form-group">
             <label for="formGroupExampleInput2">Ear Problems Tracking: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="ear_ophthalmological_problems" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackhearingproblems" value="1"  id="inlineRadio1" <%= @trackhearingproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Con Alteraciones</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="ear_ophthalmological_problems" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackhearingproblems" value="2"  id="inlineRadio1" <%= @trackhearingproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Sin alteraciones</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="ear_ophthalmological_problems" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackhearingproblems" value="3"  id="inlineRadio1" <%= @trackhearingproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Se pide rastreo</label>
             </div>
         </div>
@@ -132,48 +132,62 @@
         <div class="form-group">
             <label for="formGroupExampleInput2">Ophthalmological Problems Tracking: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_ophthalmological_problems" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackmetabolicproblems" value="1"  id="inlineRadio1" <%= @trackmetabolicproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Con Alteraciones</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_ophthalmological_problems" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackmetabolicproblems" value="2"  id="inlineRadio1" <%= @trackmetabolicproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Sin alteraciones</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_ophthalmological_problems" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackmetabolicproblems" value="3"  id="inlineRadio1" <%= @trackmetabolicproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Se pide rastreo</label>
             </div>
         </div>
+
+        <!-- Accidente Prevention Promotion -->
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Accidente Prevention Promotion: </label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="accidentpreventionpromo" value="1"  id="inlineRadio1" <%= @accidentpreventionpromo %>>
+                <label class="form-check-label" for="inlineRadio1">Consejeria Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="accidentpreventionpromo" value="2"  id="inlineRadio1" <%= @accidentpreventionpromo %>>
+                <label class="form-check-label" for="inlineRadio1">Registro accidente</label>
+            </div>
+        </div>
+
 
          <!-- Metabolic Problems Tracking -->
         <div class="form-group">
             <label for="formGroupExampleInput2">Metabolic Problems Tracking: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="1"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Sin Alteraciones</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="2"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Hipotiroidismo</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="3"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Fenilcetonuria</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="4"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="4"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Hiperplasia suprerenal</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="5"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="5"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Fibrosis quistica</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="6"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="6"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Galactosemia</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="track_metabolic_problems" value="7"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="trackophthalmologicalproblems" value="7"  id="inlineRadio1" <%= @trackophthalmologicalproblems %>>
                 <label class="form-check-label" for="inlineRadio1">Deficiencia de Biotinidasa</label>
             </div>
         </div>
@@ -182,15 +196,15 @@
         <div class="form-group">
             <label for="formGroupExampleInput2">Metal Health: </label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="metal_health" value="1"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="mentalhealth" value="1"  id="inlineRadio1" <%= @mentalhealth %>>
                 <label class="form-check-label" for="inlineRadio1">Consejeria Si</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="metal_health" value="2"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="mentalhealth" value="2"  id="inlineRadio1" <%= @mentalhealth %>>
                 <label class="form-check-label" for="inlineRadio1">En Tratamiento</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="metal_health" value="3"  id="inlineRadio1" <%= @diabetes_treatment_no %>>
+                <input class="form-check-input" type="radio" name="mentalhealth" value="3"  id="inlineRadio1" <%= @mentalhealth %>>
                 <label class="form-check-label" for="inlineRadio1">Preciso derivacion</label>
             </div>
         </div>

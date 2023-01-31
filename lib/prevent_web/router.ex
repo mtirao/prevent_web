@@ -30,9 +30,14 @@ defmodule PreventWeb.Router do
     get "/clinic", ClinicController, :index
     get "/clinic/detail", ClinicController, :detail
     get "/clinic/new", ClinicController, :new
-    #Save clinic adult
-    post "/clinic/adult/new", ClinicController, :new_adult
 
+    #Endppoints for clinic operations
+    post "/clinic/adult/new", ClinicController, :new_adult
+    post "/clinic/gynocoligies/new", ClinicController, :new_gynocoligy
+    post "/clinic/obstetrics/new", ClinicController, :new_obstetrics
+    post "/clinic/pediatric/new", ClinicController, :new_pediatric
+
+    #Endpoints for calendar operations
     get "/calendar", CalendarController, :index
     get "/calendar/hospital", CalendarController, :hospital_list
     get "/calendar/doctor/availability", CalendarController, :doctor_availability

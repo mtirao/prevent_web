@@ -23,7 +23,7 @@ defmodule PreventWeb.ClinicController do
 
         render(conn, "clinic.html", clinic: adultsList, patient_id: patient, userrole: get_session(conn, :userrole))
       else
-        RenderHelper.render_to_obstetrics("new_pediatrics.html", conn, "", %{"patient_id" => patient})
+        RenderHelper.render_to_pediatrics("new_pediatrics.html", conn, "", %{"patient_id" => patient})
        # render_to_adult("new_adult.html", conn, "", %{"patient_id" => patient})
       end
     else
@@ -82,25 +82,76 @@ defmodule PreventWeb.ClinicController do
     response = HTTPoison.post!(url, Jason.encode!(json), headers, [])
 
     if response.status_code == 201 do
-      adult = Jason.decode!(response.body)
-      patient = adult["patientid"]
-      redirect(conn, to: "/clinic?patient_id=#{patient}")
+      redirection(conn, response.body)
     else
       token = get_csrf_token()
       render(conn, "new_adult.html", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
     end
   end
 
-  def adults_list(adults) do
+  def new_gynocoligy(conn, params) do
 
-    Enum.map(adults, fn adult -> adults_map(adult) end)
+    json = RenderHelper.parameters_to_json_gynecology(params)
+
+    url = "http://localhost:3200/api/prevent/gynecology"
+    headers = [{"Content-type", "application/json"}]
+    response = HTTPoison.post!(url, Jason.encode!(json), headers, [])
+
+    if response.status_code == 201 do
+      redirection(conn, response.body)
+    else
+      token = get_csrf_token()
+      render(conn, "new_gynocoligies.html", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
+    end
 
   end
 
-  def adults_map(adult) do
+  def new_obstetrics(conn, params) do
+    json = RenderHelper.parameters_to_json_obstetrics(params)
 
+    url = "http://localhost:3200/api/prevent/obstetric"
+    headers = [{"Content-type", "application/json"}]
+    response = HTTPoison.post!(url, Jason.encode!(json), headers, [])
+
+    if response.status_code == 201 do
+      redirection(conn, response.body)
+    else
+      token = get_csrf_token()
+      render(conn, "new_obstetrics.html", usserole: "admin", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
+    end
+  end
+
+  def new_pediatric(conn, params) do
+    json = RenderHelper.parameters_to_json_pediatric(params)
+
+    url = "http://localhost:3200/api/prevent/pediatric"
+    headers = [{"Content-type", "application/json"}]
+    response = HTTPoison.post!(url, Jason.encode!(json), headers, [])
+
+    IO.puts(url)
+
+    if response.status_code == 201 do
+      redirection(conn, response.body)
+    else
+      token = get_csrf_token()
+      render(conn, "new_pediatrics.html", usserole: "admin", csrf_token: token, error_type: "error", patient_id: params["patient_id"])
+    end
+  end
+
+
+  def adults_list(adults) do
+    Enum.map(adults, fn adult -> adults_map(adult) end)
+  end
+
+  def adults_map(adult) do
     adult |> Map.put("nutritionalvalue_text", Helper.nutritional_to_text(adult["nutritionalvalue"]))
           |> Map.put("date_formatted", Helper.string_to_date_formatted(adult["date"]))
+  end
+
+  def redirection(conn, body) do
+      data = Jason.decode!(body)
+      patient = data["patientid"]
+      redirect(conn, to: "/clinic?patient_id=#{patient}")
   end
 
 end
